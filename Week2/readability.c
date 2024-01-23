@@ -5,8 +5,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 
 int count_letters(string text);
+int count_words(string text);
+int count_sentences(string text);
 
 int main(void)
 {
@@ -16,19 +19,47 @@ int main(void)
     //use a function to calculate the number of letters in words
     int letter_count = count_letters(text);
 
-    //use a function to calculate the number of words in sentences
-    // _ISspace – for white space
-    //get the average number of words per sentence
+    //use a function to calculate the number of words
+    int word_count = count_words(text);
+
+    //use a funcation to calculate the number of sentences
+    int sentence_count = count_sentences(text);
+
+    //get the average numbers
+    //L = average number of letters per 100 words
+    float L = letter_count * 100.00 / word_count;
+
+    //S = average number of sentences per 100 words
+    float S = sentence_count * 100.00 / word_count;
 
     //implement Coleman formula
+    float Coleman = 0.0588 * L - 0.296 * S - 15.8;
+    int index = round(Coleman);
 
-    //compare the index value to the defined ranges
+    //print the values
+    printf("Coleman index: %f \n", Coleman);
+    printf("L: %f \n", L);
+    printf("S: %f \n", S);
+    printf("Number of letters is: %d \n", letter_count);
+    printf("Number of words is: %d \n", word_count);
+    printf("Number of sentences is: %d \n", sentence_count);
 
-    //print the answer
-    printf("Number of letters is: %d \n", score1);
+    //grade answer
+    if (Coleman < 1)
+    {
+        printf("Before Grade 1 \n");
+    }
+    else if (Coleman >= 16)
+    {
+        printf("Grade 16+ \n");
+    }
+    else
+    {
+        printf("Grade %d \n", index);
+    }
 }
 
-//create a command for analyzing letters
+//create a command for counting letters
 int count_letters(string text)
 {
     //analyze the number of letters in a word
@@ -49,15 +80,51 @@ int count_letters(string text)
     return letters;
 }
 
-//get the average number of letters
+//create a command for counting words
+int count_words(string text)
+{
+    //count the number of spaces to understan the numbers of words
+    int words = 1;
+    int length = strlen(text);
+    for (int y = 0; y < length; y++)
+    {
+        //is it a letter?
+        if (isspace(text[y]))
+        {
+            words = words + 1;
+        }
+        else
+        {
+            words = words + 0;
+        }
+    }
+    return words;
+}
 
-//create a command for analyzing words
-
-
-    //analyze the number of words in a sentence
-
-//Coleman-Liau Index formula
-//Coleman = 0.0588 * L - 0.296 * S - 15.8
-// L – average number of letters per 100 words
-// S – average number of sentences per 100 words
-//string is an array of characters
+//create a command for counting sentences
+int count_sentences(string text)
+{
+    //count the number of spaces to understan the numbers of words
+    int sentences = 0;
+    int length = strlen(text);
+    for (int x = 0; x < length; x++)
+    {
+        //is it an exclamation point / period or question mark?
+        if (ispunct(text[x]))
+        {
+            if ((text[x] == '!') | (text[x] == '.') | (text[x] == '?'))
+                {
+                    sentences = sentences + 1;
+                }
+            else
+                {
+                    sentences = sentences + 0;
+                }
+        }
+        else
+        {
+            sentences = sentences + 0;
+        }
+    }
+    return sentences;
+}
