@@ -1,0 +1,23 @@
+
+sort1 uses: bubble sort
+
+How do you know?: upper bound O and lower bound Omega aren't the same –
+if the list is organized, the program won't take as much time
+    random ten thousand = 0,260 ms
+    reversed ten thousand = 0,345 ms
+    sorted ten thousand = 0.093 ms
+
+sort2 uses: merge sort
+
+How do you know?: merge sort is recursive and significantly faster
+    random ten thousand = 0,074 ms
+    reversed ten thousand = 0,091 ms
+    sorted ten thousand = 0,087 ms
+
+sort3 uses: selection sort
+
+How do you know?: for selection sort O and omega are always the same,
+takes long to run no matter what
+    random ten thousand = 0,155 ms
+    reversed ten thousand = 0,154 ms
+    sorted ten thousand = 0,151 ms

@@ -1,0 +1,12 @@
+question 1:
+average energy = 0.66
+average danceability = 0.72
+average valence = 0.48
+
+valence is below 0.5 which puts the listener in sad/angry music range.
+energy is above 0.5 so it puts listener in the anrgy energetic music range.
+energetic angry/happy music that allows to dance is their aura
+
+question 2:
+the above method is quite good to determine aura, but you can also include genre
+and tempo to make it even more accurate.
