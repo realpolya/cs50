@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell Stocks
+{% endblock %}
+
+{% block main %}
+    <div>
+        Your sale is completed!
+    </div>
+    <div>
+        You sold {{ shares }} shares of {{ symbol }} stock. <br>
+        The total price of your sale was {{ price }}. <br>
+        Your remaining cash balance is: {{ remains }}.
+    </div>
+    <br>
+    <form action="/">
+        <button class="btn btn-primary" type="submit">Go back to home page</button>
+    </form>
+    <br>
+    <form action="/sell" method="get">
+        <button class="btn btn-primary" type="submit">Sell more stocks</button>
+    </form>
+{% endblock %}

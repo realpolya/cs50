@@ -1,0 +1,33 @@
+/* Size for brand */
+nav .navbar-brand
+{
+    font-size: xx-large;
+}
+
+/* Colors for brand */
+nav .navbar-brand .blue
+{
+    color: magenta;
+}
+nav .navbar-brand .red
+{
+    color: purple;
+}
+nav .navbar-brand .yellow
+{
+    color: teal;
+}
+nav .navbar-brand .green
+{
+    color: cornflowerblue;
+}
+
+/* color for the button */
+button {
+    background-color: pink;
+    color: pink;
+}
+
+tr {
+    margin: 100px;
+}

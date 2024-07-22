@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Cash added
+{% endblock %}
+
+{% block main %}
+    <div>
+        Your cash is added!
+    </div>
+    <div>
+        You added {{ amount }} to your account. <br>
+        Your new cash balance is: {{ remains }}.
+    </div>
+    <br>
+    <form action="/">
+        <button class="btn btn-primary" type="submit">Go back to home page</button>
+    </form>
+    <br>
+    <form action="/cash" method="get">
+        <button class="btn btn-primary" type="submit">Add more cash</button>
+    </form>
+{% endblock %}

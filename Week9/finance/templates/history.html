@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History of transactions
+{% endblock %}
+
+{% block main %}
+    <h1>
+        History of transactions for current user
+    </h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Transaction type</th>
+                <th>Time and day</th>
+                <th>Stock symbol</th>
+                <th>Number of shares</th>
+                <th>Price at transaction</th>
+                <th>Total transaction value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in portfolio %}
+            <tr>
+                <td>{{ user.type }}</td>
+                <td>{{ user.day }}</td>
+                <td>{{ user.stock }}</td>
+                <td>{{ user.shares }}</td>
+                <td>{{ usd(user.price) }}</td>
+                <td>{{ usd(user.value) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+    <h1>
+        Welcome back, {{ username }}!
+    </h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Stock symbol</th>
+                <th>Price bought</th>
+                <th>Current price</th>
+                <th>Number of shares</th>
+                <th>Total current value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in grouped %}
+            <tr>
+                <td>{{ user.stock }}</td>
+                <td>{{ usd(user.price) }}</td>
+                <td>{{ usd(user.current) }}</td>
+                <td>{{ user.sum1 }}</td>
+                <td>{{ usd(user.sumcurr) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <div>
+        Total cash balance: {{ total_cash }}
+        <br>
+        <a href="/cash">Add more cash to your account</a>
+    </div>
+    <br>
+    <div>
+        Total portfolio balance: {{ total_balance }}
+    </div>
+    <br>
+    <div>
+        Total cash + portfolio balance: {{ total_cash_port }}
+    </div>
+{% endblock %}
