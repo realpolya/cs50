@@ -29,13 +29,18 @@ The users can take advantage of the following functions: register, log in, log o
 ### Creating and Changing Projects
 MAP Web allows users to create new projects, view a list of existing projects, change and delete projects, as they see fit.
 - Via list.html, they can see all of their active projects and press on the links for individual project. Each project has its own individual page. Google Maps Autocomplete provides functionality for address input.
+- The user can see their project on 3 separate maps provided by mapbox – neighborhood site plan, 3D map, and city map.
 
 ### Included in Project Information
+What is included in project information?
+- Functions in geocoding.py (code developed by Google Maps) help automatically derive latitude and longitude of the given address. The coordinates get plugged into the mapbox JavaScript tags to correctly showcase the location of the project. In list.html the map displays all of the active projects the user currently has with their respective locations.
+- Functions in site_info.py help extract informatino from Zimas and Zola databases for the City of Los Angeles and New York City. Functions such as zimas_info and zola_info analyze whether the project falls under their governing authorities, and if yes, queries public databases to locate the site and information pertaining to the site. In M.A.P 1.0 version, the information extracted includes lot area, parcel number, zoning, year built, lot width, and lot depth. This information is logged into the SQL table "projectinfo".
 
 ### Deleting a project
+The projects never get deleted, but their status changes in the SQL database to "Deleted". Javascript double checks whether the user confirms the deletion of the project.
 
 ### Site Inquiry
-
+Aside from creating and changing projects, the user can simply inquire about the site. The user can fill out the address (supplemented with Google Maps Autocomplete function) and see the map corresponding to the location and latitude/longitude of the project. Then, the user has the option to save this inquiry as a new project.
 
 ### Plans for the Future
 M.A.P. will continue expanding to cover other municipalities besides Los Angeles and New York. The goal is to create a system that unites city codes across the United States.
