@@ -1,0 +1,85 @@
+<!-- this is a homepage for the website in general -->
+{% extends "layout.html" %}
+
+{% block title %}
+    Home page
+{% endblock %}
+
+{% block main %}
+    <h1>
+        Welcome to MAP Web
+    </h1>
+    <br>
+    <table style="margin-left:auto;margin-right:auto;">
+        <thead>
+            <tr>
+                <th>
+                    <form action="/login" method="get">
+                        <button class="btn btn-primary btn-pink" type="submit">Log In</button>
+                    </form>
+                </th>
+                <th>
+                    <form action="/register" method="get">
+                        <button class="btn btn-primary btn-pink" type="submit">Register</button>
+                    </form>
+                </th>
+            </tr>
+        </thead>
+    </table>
+    <br>
+    <div>
+        <h2>
+            About MAP
+        </h2>
+        <p>
+            The story of M.A.P starts on University of Southern California campus where a certain B.Arch student
+            was dissatisfied with how the world of architecture was set up. Why were all these architects spending
+            hours on end on monotonous mundane tasks that could be automated? A need for an optimized
+            solution has arisen. <br>
+            Who is M.A.P for? Any person professionally involved in the realm of built environment. Feel free to add your
+            projects and understand the opportunities and limitations of each site. Whether you are an architect, real estate
+            developet, civil engineer, or an investor, you will find M.A.P very useful.
+        </p>
+        <p class="little-note">
+            Note: M.A.P 1.0 covers sites within the United States, and current functionality is best suited for sites within New York City and The City of Los Angeles.
+        </p>
+    </div>
+
+    <!-- developer's way to import mapbox -->
+    <div id="map">
+        [map displayed here]
+    </div>
+
+    <!-- script for map -->
+    <script>
+
+        // TO MAKE THE MAP APPEAR YOU MUST
+        // ADD YOUR ACCESS TOKEN FROM
+        // https://account.mapbox.com
+        mapboxgl.accessToken = 'pk.eyJ1IjoicG9saW5hc3RlcGFub3ZhIiwiYSI6ImNsemJ0cDgzMTA0Y2sybXB6MTQ4N3VjaWwifQ.ShNBoGFxf0azxHI63bDgjg';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/polinastepanova/clgsbvw0q001l01qm6uwhceyp/draft',
+            center: [-98.35, 40], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+            zoom: 2 // starting zoom
+        });
+
+        // make the globe rotate
+        function rotateCamera(timestamp) {
+            // clamp the rotation between 0 -360 degrees
+            // Divide timestamp by 100 to slow rotation to ~10 degrees / sec
+            map.rotateTo((timestamp / 500) % 360, { duration: 0 });
+
+            // Request the next frame of the animation.
+            requestAnimationFrame(rotateCamera);
+        }
+
+        // making map rotate
+        map.on('load', () => {
+            // Start the animation.
+            rotateCamera(90);
+        });
+
+    </script>
+
+{% endblock %}

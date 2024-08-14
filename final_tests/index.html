@@ -1,0 +1,33 @@
+<!-- this document was created to make Google maps work -->
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <!-- adding autocomplete function from Google -->
+    <script>
+        let autocomplete;
+        function initAutocomplete() {
+            autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById('autocomplete'),
+                {
+                    types: ['establishment'],
+                    componentRestrictions: {'country': ['AU']},
+                    fields: ['place_id', 'geometry', 'name']
+                });
+        }
+    </script>
+
+    <!-- adding Google libraries -->
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVaQ94dl2C-c2z83rAKSmmEfU5Mg4e1p8&libraries=places&callback=initAutocomplete" async defer>
+    </script>
+
+</head>
+
+<body>
+    <!-- input for the Google libraries to autocomplete -->
+    <input id="autocomplete" placeholder="Enter a place" type="text" style="width: 80%;">
+</body>
+

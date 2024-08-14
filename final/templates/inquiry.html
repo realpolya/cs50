@@ -1,0 +1,137 @@
+<!-- this is a page for the inquiry regarding a site -->
+
+{% extends "layout.html" %}
+
+{% block title %}
+    New Inquiry
+{% endblock %}
+
+{% block main %}
+    <h1>Site Inquiry</h1>
+
+     <!-- inquiry about the project -->
+     <form action="/inquiry" method="post">
+
+        <div class="mb-3">
+            <label>Address</label>
+            <!-- input for the Google libraries to autocomplete -->
+            <input id="autocomplete3" class="form-control mx-auto labeling" name="address" placeholder="Address" type="text" style="width: 80%;">
+        </div>
+
+        <br>
+
+        <!-- submitting the inquiry form -->
+        <div>
+            <button class="btn btn-primary btn-pink" type="submit">Submit Inquiry</button>
+        </div>
+
+    </form>
+    <br>
+    <!-- result is displayed here -->
+    {% if lat %}
+        <div>Latitude: {{ lat }}</div>
+        <div>Longitude: {{ lng }}</div>
+    {% endif %}
+    <br>
+    <!-- developer's way to import mapbox -->
+    <div id="map">
+        [map displayed here]
+    </div>
+
+    <!-- JS script for Mapbox below -->
+    <script>
+        var zoomScale = 2
+
+        var lat = 40
+        var lng = -98.35
+
+        // if the inquiry has been done, zoom in on the project
+        {% if lat %}
+
+
+            var lat = Number("{{ lat }}");
+            var lng = Number("{{ lng }}");
+
+            var zoomScale = 13
+
+            // creating a geoJSON for the POI
+            const geojson = {
+            type: 'FeatureCollection',
+            features: [
+                {
+                    type: 'Feature',
+                    geometry: {
+                            type: 'Point',
+                            coordinates: [lng, lat]
+                        },
+                    properties: {
+                            title: 'Project',
+                            description: 'Project Location'
+                        }
+                    }
+                ]
+            };
+
+
+        {% endif %}
+
+        // TO MAKE THE MAP APPEAR YOU MUST
+        // ADD YOUR ACCESS TOKEN FROM
+        // https://account.mapbox.com
+        mapboxgl.accessToken = 'pk.eyJ1IjoicG9saW5hc3RlcGFub3ZhIiwiYSI6ImNsemJ0cDgzMTA0Y2sybXB6MTQ4N3VjaWwifQ.ShNBoGFxf0azxHI63bDgjg';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/polinastepanova/clgsbvw0q001l01qm6uwhceyp/draft',
+            center: [lng, lat], // starting position [lng, lat]. Note that lat must be set between -90 and 90
+            zoom: zoomScale // starting zoom
+        });
+
+        // if the inquiry was done add a marker to the map
+        {% if lat %}
+
+
+        // Create a marker and add it to the map.
+        for (const feature of geojson.features) {
+            // create a HTML element for each feature
+            const el = document.createElement('div');
+            el.className = 'marker';
+
+            // make a marker for each feature and add to the map
+            new mapboxgl.Marker(el).setLngLat(feature.geometry.coordinates).addTo(map);
+        }
+
+
+        {% endif %}
+
+
+    </script>
+    <br>
+
+
+    <!-- have an option to save this inquiry as a project -->
+    <!-- adding project to the library -->
+    <form action="/new" method="post">
+
+        <h1>Save as a new project</h1>
+
+        <!-- name of the project -->
+        <div class="mb-3">
+            <label>Title</label>
+            <input autocomplete="off" class="form-control mx-auto labeling" name="name" placeholder="Name of the project" type="text" style="width: 80%;">
+        </div>
+
+        <div class="mb-3">
+            <label>Address</label>
+            <input autocomplete="on" class="form-control mx-auto labeling" name="address" placeholder="Input address above" type="text" value="{{ address }}" style="width: 80%;">
+        </div>
+
+        <br>
+
+        <!-- saving to user's library -->
+        <div>
+            <button class="btn btn-primary btn-pink" type="submit">Save as a new project</button>
+        </div>
+
+    </form>
+
+{% endblock %}
