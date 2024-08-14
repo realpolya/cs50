@@ -29,7 +29,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-# showing the list of projects for user and greeting the user
+# showing options for user
 @app.route("/")
 @login_required
 def index():
@@ -45,7 +45,7 @@ def index():
     # returning back
     return render_template("userhome.html", username=username, grouped=grouped)
 
-# showing the list of projects for user aand greeting the user
+# showing the list of projects for user and greeting the user
 @app.route("/list")
 @login_required
 def list():
@@ -63,7 +63,7 @@ def list():
     # returning back
     return render_template("list.html", username=username, grouped=grouped)
 
-# bring the user to the website's home page
+# bring to the website's home page
 @app.route("/home", methods=["GET", "POST"])
 def home():
     return render_template("home.html")
@@ -303,7 +303,7 @@ def project(project_id):
 
     return redirect(url_for('project', project_id=project_id, username=username, grouped=grouped))
 
-
+# deleting the project (changing the status to "deleted")
 @app.route("/delete/<int:project_id>")
 @login_required
 def delete(project_id):
@@ -318,6 +318,7 @@ def delete(project_id):
 
     return render_template("delete.html", title=title)
 
+# inquiring about a new site
 @app.route("/inquiry", methods=["GET", "POST"])
 @login_required
 def inquiry():
@@ -350,10 +351,9 @@ def inquiry():
         return render_template("inquiry.html")
 
 
-
+# logging in
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    """Log user in"""
 
     # Forget any user_id
     session.clear()
@@ -388,10 +388,9 @@ def login():
     else:
         return render_template("login.html")
 
-
+# logging out
 @app.route("/logout")
 def logout():
-    """Log user out"""
 
     # Forget any user_id
     session.clear()
@@ -400,10 +399,9 @@ def logout():
     return redirect("/")
 
 
-
+# registering
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    """Register user"""
 
     # if method post (user wants to register)
     if request.method == "POST":

@@ -10,9 +10,8 @@ import json
 from flask import redirect, render_template, request, session
 from functools import wraps
 
-
+# apologizing to user if wrong input
 def apology(message, code=400):
-    """Render message as an apology to user."""
 
     def escape(s):
         """
@@ -37,7 +36,7 @@ def apology(message, code=400):
 
 
 
-
+# the user must be logged in
 def login_required(f):
     """
     Decorate routes to require login.
@@ -54,13 +53,8 @@ def login_required(f):
     return decorated_function
 
 
-
-
-
-# looks up the location – todo: this can be written so much better
 # looks up the location
 def lookup(address):
-    """Connect to NYC Zola and LA Zimas (and other locations later too)"""
 
     #getting a more concise address
     orientation = ["South", "North", "East", "West", "S", "N", "W", "E"]
